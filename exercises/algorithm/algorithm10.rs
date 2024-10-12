@@ -1,8 +1,7 @@
 /*
-	graph
-	This problem requires you to implement a basic graph functio
+    graph
+    This problem requires you to implement a basic graph functio
 */
-// I AM NOT DONE
 
 use std::collections::{HashMap, HashSet};
 use std::fmt;
@@ -30,6 +29,21 @@ impl Graph for UndirectedGraph {
     }
     fn add_edge(&mut self, edge: (&str, &str, i32)) {
         //TODO
+        let (from, to, weight) = edge;
+
+        // 添加起始节点和目标节点
+        self.add_node(from);
+        self.add_node(to);
+
+        // 添加边
+        self.adjacency_table_mutable()
+            .entry(from.to_string())
+            .or_default()
+            .push((to.to_string(), weight));
+        self.adjacency_table_mutable()
+            .entry(to.to_string())
+            .or_default()
+            .push((from.to_string(), weight));
     }
 }
 pub trait Graph {
@@ -38,7 +52,7 @@ pub trait Graph {
     fn adjacency_table(&self) -> &HashMap<String, Vec<(String, i32)>>;
     fn add_node(&mut self, node: &str) -> bool {
         //TODO
-		true
+        true
     }
     fn add_edge(&mut self, edge: (&str, &str, i32)) {
         //TODO
